@@ -24,17 +24,14 @@ app.post('/deploy', function (req, res) {
     console.log(org);
     console.log(env);
 
-    console.log(shelljs.exec('ae_username="'+userName+'" sh -c \'echo "Hello $ae_username"\''));
 
-//     while(true){
-//     console.log(shelljs.exec("echo $ae_username"));
-// }
-    // shelljs.exec("git clone "+repo+" "+org+env, function(code, output){
-    //         console.log('Exit code:', code);
-    //         console.log('Program output:', output);
-    //         shelljs.cd(org+env+"/"+apiFolder);
-    //         console.log(shelljs.exec(makeScript));
-    // });
+
+    shelljs.exec("git clone "+repo+" "+org+env, function(code, output){
+            console.log('Exit code:', code);
+            console.log('Program output:', output);
+            shelljs.cd(org+env+"/"+apiFolder);
+            console.log(shelljs.exec('ae_username='+userName+' ae_password='+pw+' env='+env+' org='+org+' sh -c \'sh '+makeScript +'\''));
+    });
 
     // console.log(shelljs.exec('sh testing/apiproxies/apigee-nodejs-fileserver/make.sh'));
 
@@ -50,7 +47,7 @@ app.post('/deploy', function (req, res) {
     // //grunt-cli
     // //shell.exec('grunt --env=test --curl=true --username=akoo@apigee.com --password=$ae_password --upload-modules=true --debug=true --force');
 
-})
+});
 
 var server = app.listen(3000, function () {
   var host = server.address().address;
