@@ -1,12 +1,14 @@
 var shelljs = require('shelljs');
 var express = require('express');
 var app = express();
-var bodyParser = require('body-parser');
+var bodyParser = require('body-parser'),
+    cors = require('cors'),
+    rimraf = require('rimraf');
+app.use(express.static('public'));
 
+app.use(cors());
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-
-
 
 app.post('/deploy', function (req, res) {
     var repo = req.body.repo;
@@ -16,21 +18,28 @@ app.post('/deploy', function (req, res) {
     var env = req.body.env;
     var userName = req.body.userName;
     var pw = req.body.pw;
+    var basePath = './public/builds/' + org + '-' + env;
 
-    console.log(userName);
-    console.log(repo);
-    console.log(apiFolder);
-    console.log(makeScript);
-    console.log(org);
-    console.log(env);
+    rimraf.sync(basePath);
 
+    // console.log(userName);
+    // console.log(repo);
+    // console.log(apiFolder);
+    // console.log(makeScript);
+    // console.log(org);
+    // console.log(env);
 
-
-    shelljs.exec("git clone "+repo+" "+org+env, function(code, output){
+    shelljs.exec("git clone " + repo + " " + basePath, function(code, output) {
             console.log('Exit code:', code);
             console.log('Program output:', output);
-            shelljs.cd(org+env+"/"+apiFolder);
-            console.log(shelljs.exec('ae_username='+userName+' ae_password='+pw+' env='+env+' org='+org+' sh -c \'sh '+makeScript +'\''));
+            shelljs.cd(basePath + "/" + apiFolder);
+            var execStr = 'ae_username=' + userName + ' ae_password=' + pw + ' env=' + env + ' org=' + org + ' sh -c \'sh ' + makeScript + '\'';
+            //console.log( execStr );
+            //console.log(shelljs.exec('ae_username='+userName+' ae_password='+pw+' env='+env+' org='+org+' sh -c \'sh '+makeScript +'\''));
+            var output = shelljs.exec( execStr )
+            console.log(output);
+            res.send(output);
+            //res.send( 'done' );
     });
 
     // console.log(shelljs.exec('sh testing/apiproxies/apigee-nodejs-fileserver/make.sh'));

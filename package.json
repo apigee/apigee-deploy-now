@@ -20,8 +20,10 @@
   },
   "dependencies": {
     "body-parser": "^1.14.1",
+    "cors": "^2.7.1",
     "express": "^4.13.3",
     "gift": "^0.6.1",
+    "rimraf": "^2.4.3",
     "shelljs": "^0.5.3"
   }
 }
