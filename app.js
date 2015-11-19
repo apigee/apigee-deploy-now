@@ -22,12 +22,12 @@ app.post('/deploy', function (req, res) {
 
     rimraf.sync(basePath);
 
-    // console.log(userName);
-    // console.log(repo);
-    // console.log(apiFolder);
-    // console.log(makeScript);
-    // console.log(org);
-    // console.log(env);
+    console.log(userName);
+    console.log(repo);
+    console.log(apiFolder);
+    console.log(makeScript);
+    console.log(org);
+    console.log(env);
 
     shelljs.exec("git clone " + repo + " " + basePath, function(code, output) {
             console.log('Exit code:', code);
