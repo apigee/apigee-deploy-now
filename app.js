@@ -2,9 +2,14 @@ var shelljs = require('shelljs');
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser'),
-    cors = require('cors'),
-    rimraf = require('rimraf');
+    cors = require('cors');
+var bluebird = require('bluebird');
 app.use(express.static('public'));
+//var rimraf = bluebird.promisifyAll(require('rimraf'));
+var rimraf = require('rimraf');
+var path = require('path');
+var util = require('./lib/util');
+var config = require('./config');
 
 app.use(cors());
 app.use(bodyParser.json()); // for parsing application/json
@@ -18,44 +23,35 @@ app.post('/deploy', function (req, res) {
     var env = req.body.env;
     var userName = req.body.userName;
     var pw = req.body.pw;
-    var basePath = './public/builds/' + org + '-' + env;
-
-    rimraf.sync(basePath);
-
-    console.log(userName);
-    console.log(repo);
-    console.log(apiFolder);
-    console.log(makeScript);
-    console.log(org);
-    console.log(env);
+    var basePath = path.join('./public/builds/', util.sessionToken());
+    var appBasePath = process.cwd()
+    // var basePath = path.join('./public/builds/', util.sessionToken(), org + '-' + env);
+    var pathToDirections = req.body.pathToDirections; //directions.html
+    //console.log(basePath);
+    //rimraf.sync(basePath);
+    // console.log(userName);
+    // console.log(repo);
+    // console.log(apiFolder);
+    // console.log(makeScript);
+    // console.log(org);
+    // console.log(env);
 
     shelljs.exec("git clone " + repo + " " + basePath, function(code, output) {
-            console.log('Exit code:', code);
-            console.log('Program output:', output);
-            shelljs.cd(basePath + "/" + apiFolder);
-            var execStr = 'ae_username=' + userName + ' ae_password=' + pw + ' env=' + env + ' org=' + org + ' sh -c \'sh ' + makeScript + '\'';
-            //console.log( execStr );
-            //console.log(shelljs.exec('ae_username='+userName+' ae_password='+pw+' env='+env+' org='+org+' sh -c \'sh '+makeScript +'\''));
-            var output = shelljs.exec( execStr )
-            console.log(output);
-            res.send(output);
-            //res.send( 'done' );
+      console.log('Exit code:', code);
+      console.log('Program output:', output);
+      shelljs.cd(basePath + "/" + apiFolder);
+      var execStr = ' ae_username=' + userName + ' ae_password=' + pw + ' env=' + env //space in front of ae_username to run command in bash without save in history
+        + ' org=' + org + ' sh -c \'sh ' + makeScript + '\'';
+      //console.log( execStr );
+      var output = shelljs.exec( execStr, function(code, output) {
+          console.log('Exit code:', code);
+          console.log('Program output:', output);
+          console.log(output);
+          res.json({code: code, output: output});
+          setTimeout( util.removeClonedRepo, config.remove_cloned_repo_timeout, appBasePath, basePath);
+
+      } )
     });
-
-    // console.log(shelljs.exec('sh testing/apiproxies/apigee-nodejs-fileserver/make.sh'));
-
-    // //** look into packaging this outside
-    // //cd apiproxies/apigee-nodejs-fileserver
-    // shelljs.cd('testing/apiproxies/apigee-nodejs-fileserver');
-    // //npm install **look at later
-    // console.log(shelljs.exec('npm install').output);
-    // //cd node
-    // shelljs.cd('node');
-    // //npm install
-    // console.log(shelljs.exec('npm install').output);
-    // //grunt-cli
-    // //shell.exec('grunt --env=test --curl=true --username=akoo@apigee.com --password=$ae_password --upload-modules=true --debug=true --force');
-
 });
 
 var server = app.listen(3000, function () {
@@ -64,6 +60,3 @@ var server = app.listen(3000, function () {
 
   console.log('Example app listening at http://%s:%s', host, port);
 });
-
-
-
