@@ -57,8 +57,21 @@
 	</style>
 
 	<script>
+	
+	    
 		$( document ).ready(function() {
+		
+		
+		 $.urlParam = function(name){
+	         var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+	         return results[1] || 0;
+              }	
 			$('#consoleOutputSection').toggle();
+			
+		   $('#repo').val($.urlParam('repo'));
+		   $('#apiFolder').val($.urlParam('apiFolder'));
+		   $('#makeScript').val($.urlParam('makeScript'));   
+		   
 		});
 		function doSomething() {
 			$('#login').toggle();
@@ -73,7 +86,8 @@
 				success: function (data, status) {
 					$('body').toggleClass('loaded');
 					$('#consoleOutputSection').toggle();
-					$("#consoleOutput").text(JSON.stringify(data, null, '\t'))
+					//$("#consoleOutput").text(JSON.stringify(data, null, '\t'))
+					$("#consoleOutput").text(data.output)
 					        .parent().removeClass("prettyprinted");
 					        //$('#consoleOutput').val(JSON.stringify(data, null, '\t')); console.log(data);
 					        PR.prettyPrint();
@@ -111,7 +125,13 @@
 		    <input type="text" placeholder="org" name="org" id="org"/>
 		    <input type="text" placeholder="env" name="env" id="env"/>
 		    <input type="submit" value="Log in" />
-		    <input type="hidden" value="https://github.com/akoo1010/apigee-tutorials.git" name="repo" id="repo"/>
+		    <script>
+		    
+		   
+        
+            
+		    </script>
+		    <input type="hidden" value="repo" name="repo" id="repo"/>
 		    <input type="hidden" value="apiproxies/apigee-nock-mock" name="apiFolder" id="apiFolder"/>
 		    <input type="hidden" value="make.sh" name="makeScript" id="makeScript"/>
 		  </form>
@@ -128,7 +148,15 @@
 <!-- 			<form> -->
 				<pre class="prettyprint"><code id="consoleOutput"></code></pre><br>
 				<!-- <textarea name="consoleOutput" cols="100" rows="10" id="consoleOutput" disabled="true"></textarea><br><br> -->
-				<center><img src="./img/back_button.png"></center>
+				<!-- <center><img src="./img/back_button.png"></center> -->
+				
+				<center><button onclick="goBack()"><img src="./img/back_button.png"></button></center>
+			
+				<script>
+                function goBack() {
+                window.history.back();
+                }
+                </script>
 <!-- 				<input type="submit" value="Log in" />
 			</form> -->
 		</div>
