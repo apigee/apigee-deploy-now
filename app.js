@@ -23,12 +23,14 @@ app.post('/deploy', function (req, res) {
     var env = req.body.env;
     var userName = req.body.userName;
     var pw = req.body.pw;
-    var basePath = path.join('./public/builds/', util.sessionToken());
+    var UID = util.sessionToken();
+    var nodeBasePathBuild = path.join('./public/builds/', UID); //node.js app is based on /public
+    var loginAppBasePathBuild = path.join('/builds/', UID); //login app is based on /public/.
     var appBasePath = process.cwd()
-    // var basePath = path.join('./public/builds/', util.sessionToken(), org + '-' + env);
+    // var nodeBasePathBuild = path.join('./public/builds/', util.sessionToken(), org + '-' + env);
     var pathToDirections = req.body.pathToDirections; //directions.html
-    //console.log(basePath);
-    //rimraf.sync(basePath);
+    //console.log(nodeBasePathBuild);
+    //rimraf.sync(nodeBasePathBuild);
     // console.log(userName);
     // console.log(repo);
     // console.log(apiFolder);
@@ -36,10 +38,10 @@ app.post('/deploy', function (req, res) {
     // console.log(org);
     // console.log(env);
 
-    shelljs.exec("git clone " + repo + " " + basePath, function(code, output) {
+    shelljs.exec("git clone " + repo + " " + nodeBasePathBuild, function(code, output) {
       console.log('Exit code:', code);
       console.log('Program output:', output);
-      shelljs.cd(basePath + "/" + apiFolder);
+      shelljs.cd(nodeBasePathBuild + "/" + apiFolder);
       var execStr = ' ae_username=' + userName + ' ae_password=' + pw + ' env=' + env //space in front of ae_username to run command in bash without save in history
         + ' org=' + org + ' sh -c \'sh ' + makeScript + '\'';
       //console.log( execStr );
@@ -47,8 +49,10 @@ app.post('/deploy', function (req, res) {
           console.log('Exit code:', code);
           console.log('Program output:', output);
           console.log(output);
-          res.json({code: code, output: output});
-          setTimeout( util.removeClonedRepo, config.remove_cloned_repo_timeout, appBasePath, basePath);
+          res.json({code: code, output: output, loginAppBasePathBuild: loginAppBasePathBuild, pathToDirections: pathToDirections});
+
+          //timeout can be supplied when loading up server, e.g., timeout=10000 node app for ~10s cleanup
+          setTimeout( util.removeClonedRepo, config.remove_cloned_repo_timeout, appBasePath, nodeBasePathBuild);
 
       } )
     });

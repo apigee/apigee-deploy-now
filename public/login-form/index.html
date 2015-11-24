@@ -78,7 +78,7 @@
 					        //$('#consoleOutput').val(JSON.stringify(data, null, '\t')); console.log(data);
 					        PR.prettyPrint();
 					    },
-				error: function () { 
+				error: function () {
 					$('#consoleOutputSection').toggle();
 				},
 			});
@@ -111,6 +111,7 @@
 		    <input type="text" placeholder="org" name="org" id="org"/>
 		    <input type="text" placeholder="env" name="env" id="env"/>
 		    <input type="submit" value="Log in" />
+		    <!-- ejs -->
 		    <input type="hidden" value="https://github.com/akoo1010/apigee-tutorials.git" name="repo" id="repo"/>
 		    <input type="hidden" value="apiproxies/apigee-nock-mock" name="apiFolder" id="apiFolder"/>
 		    <input type="hidden" value="make.sh" name="makeScript" id="makeScript"/>
