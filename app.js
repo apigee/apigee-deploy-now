@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 app.post('/deploy', function (req, res) {
     var repo = req.body.repo;
     var apiFolder = req.body.apiFolder;
-    var makeScript = req.body.makeScript;
+    var makeScript = 'make.sh' || req.body.makeScript;
     var org = req.body.org;
     var env = req.body.env;
     var userName = req.body.userName;
@@ -28,7 +28,8 @@ app.post('/deploy', function (req, res) {
     var loginAppBasePathBuild = path.join('/builds/', UID); //login app is based on /public/.
     var appBasePath = process.cwd()
     // var nodeBasePathBuild = path.join('./public/builds/', util.sessionToken(), org + '-' + env);
-    var pathToDirections = req.body.pathToDirections; //directions.html
+    var pathToDirections = 'directions.html' || req.body.pathToDirections; //directions.html
+    //** var linktoGithub =  window.referer || req.body.linktoGithub;  test window.referer
     //console.log(nodeBasePathBuild);
     //rimraf.sync(nodeBasePathBuild);
     // console.log(userName);
@@ -49,7 +50,7 @@ app.post('/deploy', function (req, res) {
           console.log('Exit code:', code);
           console.log('Program output:', output);
           console.log(output);
-          res.json({code: code, output: output, loginAppBasePathBuild: loginAppBasePathBuild, pathToDirections: pathToDirections});
+          res.json({code: code, output: output, loginAppBasePathBuild: loginAppBasePathBuild});
 
           //timeout can be supplied when loading up server, e.g., timeout=10000 node app for ~10s cleanup
           setTimeout( util.removeClonedRepo, config.remove_cloned_repo_timeout, appBasePath, nodeBasePathBuild);
