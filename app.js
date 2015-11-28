@@ -16,15 +16,16 @@ app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 app.post('/deploy', function (req, res) {
+    shelljs.cd(__dirname);
     var repo = req.body.repo;
     var apiFolder = req.body.apiFolder || ".";
     var makeScript = req.body.makeScript || "make.sh";
-    var org = req.body.org;
-    var env = req.body.env;
+    var org = req.body.org || "";
+    var env = req.body.env || "";
     if( !repo ) throw("Missing repo.");
-    if( !org || !env){
-      throw("Missing org or env parameters.");
-    }
+    // if( !org || !env){
+    //   throw("Missing org or env parameters.");
+    // }
     res.write('repo: ' + repo + '\n');
     res.write('apiFolder: ' + apiFolder + '\n');
     res.write('makeScript: ' + makeScript + '\n');
@@ -38,7 +39,8 @@ app.post('/deploy', function (req, res) {
     var loginAppBasePathBuild = path.join('/builds/', UUID); //login app is based on /public/.
     var appBasePath = process.cwd()
     // var nodeBasePathBuild = path.join('./public/builds/', util.sessionToken(), org + '-' + env);
-    var pathToDirections = req.body.pathToDirections; //directions.html
+    var pathToDirections = 'directions.html' || req.body.pathToDirections; //directions.html
+    //** var linktoGithub =  window.referer || req.body.linktoGithub;  test window.referer
     //console.log(nodeBasePathBuild);
     //rimraf.sync(nodeBasePathBuild);
     // console.log(userName);
@@ -49,7 +51,7 @@ app.post('/deploy', function (req, res) {
     // console.log(env);
 
     shelljs.exec("git clone " + repo + " " + nodeBasePathBuild, function(code, output) {
-      console.log('Exit:', code);
+      console.log("Exit:", code);
       res.write("Exit: " + code + "\n");
       console.log('Program output:', output);
       res.write("Program output: " + output + "\n");
@@ -57,6 +59,7 @@ app.post('/deploy', function (req, res) {
       //res.write("cd into Github apiFolder folder: " + execOutput);
       var execStr = ' ae_username=' + userName + ' ae_password=' + pw + ' env=' + env //space in front of ae_username to run command in bash without save in history
         + ' org=' + org + ' sh -c \'sh ' + makeScript + '\'';
+      res.write("============= Initiating Build ===============\n");
       //console.log( execStr );
       // var output = shelljs.exec( execStr, function(code, output) {
       //     console.log('Exit code:', code);
@@ -69,14 +72,26 @@ app.post('/deploy', function (req, res) {
       //
       // } )
 
+      // var output = shelljs.exec( execStr, function(code, output) {
+      //     console.log('Exit code:', code);
+      //     console.log('Program output:', output);
+      //     console.log(output);
+      //     res.json({code: code, output: output, loginAppBasePathBuild: loginAppBasePathBuild});
+
       var output = shelljs.exec( execStr, { async: true});
       output.stdout.on('data', function(data) {
+        output.stdout
         res.write(data);
       });
-      output.stdout.on('end', function() {
-        console.log('Stream end');
+
+      output.stdout.on('end', function(code) {
+        res.write('============== Deployment Completed ===============\n');
         setTimeout( util.removeClonedRepo, config.remove_cloned_repo_timeout, appBasePath, nodeBasePathBuild);
         res.end();
+      });
+
+      output.stderr.on('data', function(code) {
+        res.write(code);
       });
     });
 });

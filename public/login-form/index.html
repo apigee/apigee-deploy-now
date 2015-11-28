@@ -120,6 +120,39 @@
 
 			http.send(params);
 		  return false;
+
+			// $('body').toggleClass('loaded');
+			// var data = { userName: $('#userName').val(), pw: $('#password').val(), org: $('#org').val(), env: $('#env').val(), repo: $('#repo').val(), apiFolder: $('#apiFolder').val(), makeScript: $('#makeScript').val()}
+			// //console.log(data);
+			// $.ajax({
+			// 	url: encodeURI('/deploy'),
+			// 	type: 'POST',
+			// 	data: data,
+			// 	contentType: 'application/x-www-form-urlencoded',
+			// 	success: function (data, status) {
+			// 		$('body').toggleClass('loaded');
+			// 		$('#consoleOutputSection').toggle();
+			// 		//$("#consoleOutput").text(JSON.stringify(data, null, '\t'))
+			// 		$("#consoleOutput").text(data.output)
+			// 		        .parent().removeClass("prettyprinted");
+			// 		        //$('#consoleOutput').val(JSON.stringify(data, null, '\t')); console.log(data);
+			// 		        PR.prettyPrint();
+			// 		//$('#consoleOutputSection').toggle();
+			//
+			// 		$.get( data.loginAppBasePathBuild + "/apiproxies/apigee-nock-mock/directions.html", function( data ) {
+			// 		  		//console.log(data);
+			// 		  		$( "#directionsOutput" ).html( data );
+			// 		  		//alert( "Load was performed." );
+			// 			});
+			// 		},
+			// 	error: function () {
+			// 		$('#consoleOutputSection').toggle();
+			// 	},
+			// });
+		  //   //alert('Form submitted!');
+		  //   //$('#consoleOutput').val('111');
+		  //   return false;
+
 		}
 	</script>
 </head>
@@ -164,6 +197,26 @@
 			<h1 align="center"><img src="./apigee_logo.png" height="90" width="180"><br><span style="color:gray">Console output</span></h1>
 				<pre class="prettyprint"><code id="consoleOutput"></code></pre><br>
 				<center><button onclick="goBack()"><img src="./img/back_button.png"></button></center>
+
+
+				<!-- <script>
+                function goBack() {
+                window.history.back();
+                }
+                </script>
+		</div>
+		<div id="directions" style="
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 700px;
+    margin: auto;
+    background-color: #f3f3f3;">
+			<h1 align="center"><span style="color:gray">Directions</span></h1>
+				<div id="directionsOutput"></div>
+
+				<center><button onclick="goBack()"></button></center> -->
 
 				<script>
                 function goBack() {
