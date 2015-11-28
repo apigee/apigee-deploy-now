@@ -6,8 +6,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<title>Deploy to Apigee</title>
-	<meta name="description" content="Learn how to recreate the preloader from Cantina Negrar. Tutorial for a passionate front-end web developers by Petr Tichy.">
+	<title>Deploy to Apigee Edge effortlesly</title>
+	<meta name="description" content="Apigee Deploy Now Button. Make it easy for developers to deploy APIs in Apigee">
 
 	<!--iOS -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -54,48 +54,72 @@
 	#demo-content {
 		padding-top: 100px;
 	}
+	pre.prettyprint{
+    width: auto;
+		height: 200px;
+    overflow: auto;
+		resize: both;
+	}
 	</style>
 
 	<script>
-	 
 		$( document ).ready(function() {
 		 $.urlParam = function(name){
 	         var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
-	         return results[1] || 0;
-              }	
-			$('#consoleOutputSection').toggle();
-			
-		   $('#repo').val($.urlParam('repo'));
-		   $('#apiFolder').val($.urlParam('apiFolder'));
-		   $('#makeScript').val($.urlParam('makeScript'));   
-		   
+	         return results && ( results[1] || 0 );
+      }
+			//$('#consoleOutputSection').toggle();
+			console.log($('#repo').val())
+			if( !$.urlParam('repo') ) {
+				alert('Provide public Github repo as query param');
+				$('#login').toggle();
+				return false;
+			}
+		   $('#repo').val($.urlParam('repo') || "https://github.com/akoo1010/apigee-tutorials.git");
+		   $('#apiFolder').val($.urlParam('apiFolder')) || '.'; //apiproxies/apigee-nock-mock
+		   $('#makeScript').val($.urlParam('makeScript') || 'make.sh' );
 		});
-		function doSomething() {
+		function deploy_bundle() {
 			$('#login').toggle();
-			$('body').toggleClass('loaded');
+			//$('body').toggleClass('loaded');
 			var data = { userName: $('#userName').val(), pw: $('#password').val(), org: $('#org').val(), env: $('#env').val(), repo: $('#repo').val(), apiFolder: $('#apiFolder').val(), makeScript: $('#makeScript').val(),}
 			//console.log(data);
-			$.ajax({
-				url: encodeURI('/deploy'),
-				type: 'POST',
-				data: data,
-				contentType: 'application/x-www-form-urlencoded',
-				success: function (data, status) {
-					$('body').toggleClass('loaded');
-					$('#consoleOutputSection').toggle();
-					//$("#consoleOutput").text(JSON.stringify(data, null, '\t'))
-					$("#consoleOutput").text(data.output)
-					        .parent().removeClass("prettyprinted");
-					        //$('#consoleOutput').val(JSON.stringify(data, null, '\t')); console.log(data);
-					        PR.prettyPrint();
-					    },
-				error: function () {
-					$('#consoleOutputSection').toggle();
-				},
-			});
-		    //alert('Form submitted!');
-		    //$('#consoleOutput').val('111');
-		    return false;
+
+			// $.ajax({
+			// 	url: encodeURI('/deploy'),
+			// 	type: 'POST',
+			// 	data: data,
+			// 	contentType: 'application/x-www-form-urlencoded',
+			// 	success: function (data, status) {
+			// 		$('body').toggleClass('loaded');
+			// 		$('#consoleOutputSection').toggle();
+			// 		//$("#consoleOutput").text(JSON.stringify(data, null, '\t'))
+			// 		$("#consoleOutput").text(data)
+			// 		        .parent().removeClass("prettyprinted");
+			// 		        //$('#consoleOutput').val(JSON.stringify(data, null, '\t')); console.log(data);
+			// 		        PR.prettyPrint();
+			// 		    },
+			// 	error: function () {
+			// 		$('#consoleOutputSection').toggle();
+			// 	},
+			// });
+			var http = new XMLHttpRequest();
+			var url = "/deploy";
+			var params = $.param( data );
+			http.open("POST", url, true);
+			http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			http.onprogress = function() {
+				$("#consoleOutput").text(http.responseText)
+					.parent().removeClass("prettyprinted");
+				PR.prettyPrint();
+				$('pre').scrollTop( $("pre").prop("scrollHeight") );
+			}
+			// http.onload = function() {
+			//
+			// }
+
+			http.send(params);
+		  return false;
 		}
 	</script>
 </head>
@@ -116,17 +140,17 @@
 		<div id="login">
 		  <!-- <div id="triangle"></div> -->
 		  <h1><span style="color:white">Deploy to Apigee Edge</span><img src="./apigee_logo.png" height="90" width="180"></h1>
-		  <form action="/deploy" method="post" enctype="application/x-www-form-urlencoded" onsubmit="return doSomething();">
+		  <form action="/deploy" method="post" enctype="application/x-www-form-urlencoded" onsubmit="return deploy_bundle();">
 		    <input type="email" placeholder="Email" name="userName" id="userName"/>
 		    <input type="password" placeholder="Password" name="pw" id="password"/>
 		    <input type="text" placeholder="org" name="org" id="org"/>
 		    <input type="text" placeholder="env" name="env" id="env"/>
 		    <input type="submit" value="Log in" />
 
-		    <!-- ejs -->
-		    <input type="hidden" value="https://github.com/akoo1010/apigee-tutorials.git" name="repo" id="repo"/>
-		    <input type="hidden" value="apiproxies/apigee-nock-mock" name="apiFolder" id="apiFolder"/>
-		    <input type="hidden" value="make.sh" name="makeScript" id="makeScript"/>
+		    <!-- default values -->
+		    <input type="hidden" value="" name="repo" id="repo"/>
+		    <input type="hidden" value="" name="apiFolder" id="apiFolder"/>
+		    <input type="hidden" value="" name="makeScript" id="makeScript"/>
 		  </form>
 		</div>
 		<div id="consoleOutputSection" style="
@@ -140,7 +164,7 @@
 			<h1 align="center"><img src="./apigee_logo.png" height="90" width="180"><br><span style="color:gray">Console output</span></h1>
 				<pre class="prettyprint"><code id="consoleOutput"></code></pre><br>
 				<center><button onclick="goBack()"><img src="./img/back_button.png"></button></center>
-			
+
 				<script>
                 function goBack() {
                 window.history.back();
@@ -148,10 +172,5 @@
                 </script>
 		</div>
 	</div>
-	<!-- /Demo content -->
-
-	<!-- script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script -->
-	<!-- script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script-->
-
 </body>
 </html>
