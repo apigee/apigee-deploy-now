@@ -14,6 +14,15 @@ var upload = multer({ dest: __dirname + '/uploads/' });
 var fs = require('fs');
 var unzip = require('unzip');
 var config = require('./config');
+var credentials = {
+    key: fs.readFileSync('key.pem'),
+    cert: fs.readFileSync('cert.pem')
+  };
+var http = require('http');
+var https = require('https');
+var httpServer = http.createServer(app);
+var httpsServer = https.createServer(credentials, app);
+
 
 app.use(cors());
 app.use(bodyParser.json()); // for parsing application/json
@@ -114,9 +123,17 @@ app.post('/deploy', function (req, res) {
     });
 });
 
-var server = app.listen(3000, function () {
-  var host = server.address().address;
-  var port = server.address().port;
+//httpServer.listen(3000);
+//httpsServer.listen(443);
 
+httpServer = app.listen(80, function () {
+  var host = httpServer.address().address;
+  var port = httpServer.address().port;
   console.log('Example app listening at http://%s:%s', host, port);
+});
+
+httpsServer = app.listen(5555, function () {
+  var host = httpsServer.address().address;
+  var port = httpsServer.address().port;
+  console.log('Example app listening at https://%s:%s', host, port);
 });
