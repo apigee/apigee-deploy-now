@@ -5,7 +5,6 @@ var bodyParser = require('body-parser'),
     cors = require('cors');
 var bluebird = require('bluebird');
 app.use(express.static('public'));
-//var rimraf = bluebird.promisifyAll(require('rimraf'));
 var rimraf = require('rimraf');
 var path = require('path');
 var _util = require('./lib/util');
@@ -14,15 +13,9 @@ var upload = multer({ dest: __dirname + '/uploads/' });
 var fs = require('fs');
 var unzip = require('unzip');
 var config = require('./config');
-var credentials = {
-    key: fs.readFileSync('key.pem'),
-    cert: fs.readFileSync('cert.pem')
-  };
 var http = require('http');
 var https = require('https');
 var httpServer = http.createServer(app);
-var httpsServer = https.createServer(credentials, app);
-
 
 app.use(cors());
 app.use(bodyParser.json()); // for parsing application/json
@@ -123,17 +116,14 @@ app.post('/deploy', function (req, res) {
     });
 });
 
-//httpServer.listen(3000);
-//httpsServer.listen(443);
-
-httpServer = app.listen(80, function () {
+httpServer = app.listen(3000, function () {
   var host = httpServer.address().address;
   var port = httpServer.address().port;
   console.log('Example app listening at http://%s:%s', host, port);
 });
 
-httpsServer = app.listen(5555, function () {
-  var host = httpsServer.address().address;
-  var port = httpsServer.address().port;
-  console.log('Example app listening at https://%s:%s', host, port);
-});
+//remove to enable SSL. Follow steps from http://blog.mgechev.com/2014/02/19/create-https-tls-ssl-application-with-express-nodejs/
+/*https.createServer({
+  key: fs.readFileSync('key.pem'),
+  cert: fs.readFileSync('cert.pem')
+}, app).listen(55555);*/
