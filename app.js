@@ -69,8 +69,8 @@ app.post('/deploy_zip', upload.single('zipFile'), function (req, res, next) {
 app.post('/deploy', function (req, res) {
     shelljs.cd(__dirname);
     var repo = req.body.repo;
-    var apiFolder = req.body.apiFolder || ".";
-    var makeScript = req.body.makeScript || "make.sh";
+    var apiFolder = decodeURIComponent(req.body.apiFolder || ".");
+    var makeScript = decodeURIComponent(req.body.makeScript || "make.sh");
     var org = req.body.org || "";
     var env = req.body.env || "";
     if( !repo ) throw("Missing repo.");
@@ -126,4 +126,4 @@ httpServer = app.listen(3000, function () {
 /*https.createServer({
   key: fs.readFileSync('key.pem'),
   cert: fs.readFileSync('cert.pem')
-}, app).listen(55555);*/
+}, app).listen(443);*/
