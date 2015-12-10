@@ -98,7 +98,7 @@ app.post('/deploy', function (req, res) {
       res.write("Program output: " + output + "\n");
       shelljs.cd(nodeBasePathBuild + "/" + apiFolder);
       //res.write("cd into Github apiFolder folder: " + execOutput);
-      var execStr = ' ae_username=' + userName + ' ae_password=' + pw + ' env=' + env //space in front of ae_username to run command in bash without save in history
+      var execStr = ' ae_username=' + userName + ' ae_password="' + pw + '" env=' + env //space in front of ae_username to run command in bash without save in history
         + ' org=' + org + ' sh -c \'sh ' + makeScript + '\'';
       res.write("============= Initiating Build ===============\n");
       var output = shelljs.exec( execStr, { async: true});
@@ -123,7 +123,7 @@ httpServer = app.listen(3000, function () {
 });
 
 //remove to enable SSL. Follow steps from http://blog.mgechev.com/2014/02/19/create-https-tls-ssl-application-with-express-nodejs/
-/*https.createServer({
+https.createServer({
   key: fs.readFileSync('key.pem'),
   cert: fs.readFileSync('cert.pem')
-}, app).listen(443);*/
+}, app).listen(443);
