@@ -98,8 +98,12 @@ app.post('/deploy', function (req, res) {
       res.write("Program output: " + output + "\n");
       shelljs.cd(nodeBasePathBuild + "/" + apiFolder);
       //res.write("cd into Github apiFolder folder: " + execOutput);
-      var execStr = ' ae_username=' + userName + ' ae_password="' + pw + '" env=' + env //space in front of ae_username to run command in bash without save in history
-        + ' org=' + org + ' sh -c \'sh ' + makeScript + '\'';
+      var execStr = ' ae_username=' + userName +
+                    ' ae_password="' + pw +
+                    '" env=' + env + //space in front of ae_username to run command in bash without save in history
+                    ' org=' + org +
+                    ' UUID=' + UUID +
+                    ' sh -c \'sh ' + makeScript + '\'';
       res.write("============= Initiating Build ===============\n");
       var output = shelljs.exec( execStr, { async: true});
       output.stdout.on('data', function(data) {
