@@ -1,5 +1,5 @@
 # apigee-deploy-now
-Deploy Now button for Apigee Edge samples.
+The purpose of the button is to make easy (no need to know any tools, except your browser) to deploy APIs on Edge.
 
 [![Deploy to Apigee](./images/deploy_to_apigee.png)](http://dabuttonfactory.com/#t=Deploy+to+Apigee&f=Calibri-Bold-Italic&ts=22&tc=fff&hp=35&vp=10&c=round&bgt=pyramid&bgc=f90&ebgc=f90&shs=4&shc=666&sho=se)
 
