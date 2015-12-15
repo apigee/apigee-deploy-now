@@ -120,6 +120,14 @@ app.post('/deploy', function (req, res) {
     });
 });
 
+app.get('/health', function(req, res) {
+  res.send('OK');
+});
+
+app.get('/', function(req, res){
+  res.redirect('https://github.com/apigee/apigee-deploy-now');
+} )
+
 httpServer = app.listen(3000, function () {
   var host = httpServer.address().address;
   var port = httpServer.address().port;
