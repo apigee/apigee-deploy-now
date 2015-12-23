@@ -33,6 +33,9 @@ curl -v -X POST -F "zipFile=@Mavendeploynow-master.zip" -F "makeScript=makeScrip
 -F userName=$ae_username -F pw=$ae_password 'https://deploynow.apigee.com/deploy_zip'
 ```
 
+#### Wanna run it in-house?
+This repo contains all the Node.js and Express.js code necessary to run it on your own server. So, please help yourself, clone this repo and get started!
+
 ##### Access Login App
 https://deploynow.apigee.com/login-form/
 
@@ -41,3 +44,5 @@ http://localhost:3000/login-form/
 
 ##### Button Art
 [![Deploy to Apigee](./images/deploy_to_apigee.png)](http://dabuttonfactory.com/#t=Deploy+to+Apigee&f=Calibri-Bold-Italic&ts=22&tc=fff&hp=35&vp=10&c=round&bgt=pyramid&bgc=f90&ebgc=f90&shs=4&shc=666&sho=se)
+
+#### License
