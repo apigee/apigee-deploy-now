@@ -46,3 +46,4 @@ http://localhost:3000/login-form/
 [![Deploy to Apigee](./images/deploy_to_apigee.png)](http://dabuttonfactory.com/#t=Deploy+to+Apigee&f=Calibri-Bold-Italic&ts=22&tc=fff&hp=35&vp=10&c=round&bgt=pyramid&bgc=f90&ebgc=f90&shs=4&shc=666&sho=se)
 
 #### License
+Copyright (c) 2015 Diego Zuluaga (twitter: @dzuluaga), Alex Koo (twitter: akoo1010), Maruthi Chandu (twitter: @chanduom85) Licensed under the MIT license.
