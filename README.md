@@ -1,7 +1,7 @@
 # apigee-deploy-now
 The purpose of Deploy Now Button is to make easy (no need to know any tools, except your browser) to deploy APIs on Edge.
 
-[![Deploy to Apigee](https://github.com/maruthichand/Mavendeploynow/raw/master/images/deploy_to_apigee.png)](https://deploynow.apigee.com/login-form/?repo=https://github.com/dzuluaga/Mavendeploynow.git&apiFolder=/&makeScript=make.sh)
+[![Deploy to Apigee](https://raw.githubusercontent.com/apigee/apigee-deploy-now/master/images/deploy_to_apigee.png)](https://deploynow.apigee.com/login-form/?repo=https://github.com/dzuluaga/Mavendeploynow.git&apiFolder=/&makeScript=make.sh)
 
 #### Getting started
 ######Example of a Maven API Proxy enabled with Deploy Now Button
