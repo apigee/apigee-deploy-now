@@ -43,7 +43,7 @@ https://deploynow.apigee.com/login-form/
 http://localhost:3000/login-form/
 
 ##### Button Art
-[![Deploy to Apigee](./images/deploy_to_apigee.png)](http://dabuttonfactory.com/#t=Deploy+to+Apigee&f=Calibri-Bold-Italic&ts=22&tc=fff&hp=35&vp=10&c=round&bgt=pyramid&bgc=f90&ebgc=f90&shs=4&shc=666&sho=se)
+[![Deploy to Apigee](./images/deploy_to_apigee.png)](http://dabuttonfactory.com/button.png?t=Deploy+to+Apigee&f=Calibri-Bold-Italic&ts=22&tc=fff&hp=35&vp=10&c=round&bgt=pyramid&bgc=ff4300&ebgc=ff4300&shs=4&shc=666&sho=se)
 
 #### License
 Copyright (c) 2015 Diego Zuluaga (twitter: @dzuluaga), Alex Koo (twitter: akoo1010), Maruthi Chowdavarapu (twitter: @chanduom85) Licensed under the MIT license.
