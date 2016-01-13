@@ -44,7 +44,8 @@ http://localhost:3000/login-form/
 
 ##### Button Art
 Modify the presentation of Apigee Deploy Now Button with this template:
-[![Deploy to Apigee](./images/deploy_to_apigee.png)](http://dabuttonfactory.com/#t=Deploy+to+apigee&f=Open+Sans-Bold&ts=29&tc=fff&hp=35&vp=10&c=round&bgt=pyramid&bgc=ff4300&ebgc=ff4300&shs=4&shc=666&sho=se)
+
+[![Deploy to Apigee](./images/deploy_to_apigee.png)](http://dabuttonfactory.com/#t=Deploy+to+Apigee&f=Noto+Sans&ts=24&tc=fff&tshs=1&tshc=000&hp=20&vp=9&c=9&bgt=unicolored&bgc=ff4300&shs=3&shc=666&sho=s)
 
 #### License
 Copyright (c) 2015 Diego Zuluaga (twitter: @dzuluaga), Alex Koo (twitter: akoo1010), Maruthi Chowdavarapu (twitter: @chanduom85) Licensed under the MIT license.
