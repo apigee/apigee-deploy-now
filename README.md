@@ -1,7 +1,7 @@
 # apigee-deploy-now
 The purpose of Deploy Now Button is to make easy (no need to know any tools, except your browser) to deploy APIs on Edge.
 
-[![Deploy to Apigee](https://raw.githubusercontent.com/apigee/apigee-deploy-now/master/images/deploy_to_apigee.png)](https://deploynow.apigee.com/login-form/?repo=https://github.com/dzuluaga/Mavendeploynow.git&apiFolder=/&makeScript=make.sh)
+<a href="https://deploynow.apigee.com/login-form/?repo=https://github.com/dzuluaga/Mavendeploynow.git&apiFolder=/&makeScript=make.sh"><img src="https://raw.githubusercontent.com/apigee/apigee-deploy-now/master/images/deploy_to_apigee.png" align="left" height="45" width="232" ></a><br><br>
 
 #### Getting started
 ######Example of a Maven API Proxy enabled with Deploy Now Button
@@ -45,7 +45,7 @@ http://localhost:3000/login-form/
 ##### Button Art
 Modify the presentation of Apigee Deploy Now Button with this template:
 
-[![Deploy to Apigee](./images/deploy_to_apigee.png)](http://dabuttonfactory.com/#t=Deploy+to+Apigee&f=Noto+Sans&ts=24&tc=fff&tshs=1&tshc=000&hp=20&vp=9&c=9&bgt=unicolored&bgc=ff4300&shs=3&shc=666&sho=s)
+<a href="http://dabuttonfactory.com/#t=Deploy+to+Apigee&f=Noto+Sans&ts=24&tc=fff&tshs=1&tshc=000&hp=20&vp=9&c=9&bgt=unicolored&bgc=ff4300&shs=3&shc=666&sho=s"><img src="./images/deploy_to_apigee.png" height="45" width="232" ></a>
 
 #### License
 Copyright (c) 2015 Diego Zuluaga (twitter: @dzuluaga), Alex Koo (twitter: akoo1010), Maruthi Chowdavarapu (twitter: @chanduom85) Licensed under the MIT license.
