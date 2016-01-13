@@ -11,7 +11,7 @@ Click on the "Deploy Now" button from [this page](https://github.com/akoo1010/ap
 
 ###### Parameters
 The following parameters are required:
-- repo: Public git repo URL/SSH (Github, Gitlabs, Bitbucket, etc.). Private repos will be supported by providing SSH keys. e.g. https://github.com/dzuluaga/Mavendeploynow.git 
+- repo: Public git repo URL/SSH (Github, Gitlabs, Bitbucket, etc.). Private repos will be supported by providing SSH keys. e.g. https://github.com/dzuluaga/Mavendeploynow.git
 - apiFolder: Directory of the API proxy within the repo. This is useful to indicate the directory in which the make.sh and api proxy artifacts are located. e.g. /, /api-tutorials/api-proxy-1/
 - makeScript: Filename of the shell file to be executed located within the repo. This file executes deployment tools apigeetool, Grunt, Maven. etc. e.g. make.sh
 
@@ -43,7 +43,8 @@ https://deploynow.apigee.com/login-form/
 http://localhost:3000/login-form/
 
 ##### Button Art
-[![Deploy to Apigee](./images/deploy_to_apigee.png)](http://dabuttonfactory.com/#t=Deploy+to+apigee&f=Open+Sans-Bold&ts=29&tc=fff&hp=35&vp=10&c=5&bgt=pyramid&bgc=ff4300&ebgc=ff4300&shs=4&shc=666&sho=se)
+Modify the presentation of Apigee Deploy Now Button with this template:
+[![Deploy to Apigee](./images/deploy_to_apigee.png)](http://dabuttonfactory.com/#t=Deploy+to+apigee&f=Open+Sans-Bold&ts=29&tc=fff&hp=35&vp=10&c=round&bgt=pyramid&bgc=ff4300&ebgc=ff4300&shs=4&shc=666&sho=se)
 
 #### License
 Copyright (c) 2015 Diego Zuluaga (twitter: @dzuluaga), Alex Koo (twitter: akoo1010), Maruthi Chowdavarapu (twitter: @chanduom85) Licensed under the MIT license.
