@@ -2,7 +2,10 @@ apigee-deploy-now
 ==================
 The purpose of Deploy Now Button is to make easy deployment of API Proxy Samples to Apigee Edge. So, you no longer need to install tools on your laptop. Just click on the button below to get started.
 
-<a href="https://deploynow.apigee.com/login-form/?repo=https://github.com/akoo1010/apigee-nock-mock-deploy-now.git&apiFolder=/&makeScript=make.sh"><img src="https://raw.githubusercontent.com/apigee/apigee-deploy-now/master/images/deploy_to_apigee.png" align="left" height="45" width="232" ></a><br><br>
+<a href="https://deploynow.apigee.com/login-form/?repo=https://github.com/akoo1010/apigee-nock-mock-deploy-now.git&apiFolder=/&makeScript=make.sh" target="_blank">
+<img src="https://raw.githubusercontent.com/apigee/apigee-deploy-now/master/images/deploy_to_apigee.png" alt="Deploy to Apigee">
+</a>
+
 
 #### Getting started
 For developers looking for additional examples of API Proxies enabled with Deploy Now, checkout the following examples:
