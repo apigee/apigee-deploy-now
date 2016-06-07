@@ -64,4 +64,5 @@ Modify the presentation of Apigee Deploy Now Button with this template:
 <a href="http://dabuttonfactory.com/#t=Deploy+to+Apigee&f=Noto+Sans&ts=24&tc=fff&tshs=1&tshc=000&hp=20&vp=9&c=9&bgt=unicolored&bgc=ff4300&shs=3&shc=666&sho=s"><img src="./images/deploy_to_apigee.png" height="45" width="232" ></a>
 
 #### License
-Copyright (c) 2015 Diego Zuluaga (twitter: @dzuluaga), Alex Koo (twitter: akoo1010), Maruthi Chowdavarapu (twitter: @chanduom85) Licensed under the MIT license.
+Copyright 2016 Apigee Corporation
+Diego Zuluaga (twitter: @dzuluaga), Alex Koo (twitter: akoo1010), Maruthi Chowdavarapu (twitter: @chanduom85) Licensed under the Apache 2.0 license.
